@@ -5,6 +5,6 @@ def machinePrecision(f=float):
         machine=f(machine)/f(2)
     return new_machine
 
-print("yuval")
 print("before:",abs(3.0*(4.0/3.0-1)-1))
 print("after:",abs(3.0*(4.0/3.0-1)-1)-machinePrecision())
+
