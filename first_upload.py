@@ -21,7 +21,7 @@ def unit_matrix(n):
     temp = []
     for i in range(n):
         for j in range(n):
-            if i==j:
+            if i == j:
                 temp.append(1)
             else:
                 temp.append(0)
@@ -32,12 +32,12 @@ def unit_matrix(n):
 def createMatrix():
     x=[]
     y=[]
-    s=int(input("enter the size rows matrix:"))
-    p=int(input("enter the size cols matrix:"))
-    for i in range(s):
-        for j in range(p):
-            t=int(input("enter number:"))
-            y.append(t)
+    rows=int(input("enter the size rows matrix:"))
+    cols=int(input("enter the size cols matrix:"))
+    for i in range(rows):
+        for j in range(cols):
+            num=int(input("enter number:"))
+            y.append(num)
         x.append(y)
         y=[]
     return x
@@ -45,8 +45,7 @@ def createMatrix():
 
 
 
-def kefelmatrix(x,y):
-
+def multiplymatrix(x,y):
     result = []
     temp = []
     for i in range(len(x)):
@@ -76,7 +75,7 @@ def ChangeMatrix(x):
                         if x[y][j] != 0:
                             k = unit_matrix(len(x))  # change i with y
                             k[i], k[y] = k[y], k[i]
-                            x = kefelmatrix(k, x)
+                            x = multiplymatrix(k, x)
                             print("L is:", x)
                             z = 1
                             break
@@ -86,12 +85,12 @@ def ChangeMatrix(x):
             if i==j:
                 y=unit_matrix(len(x))
                 y[i][j]=(1/x[i][j])
-                x=kefelmatrix(y,x)#after the change pivot is 1
+                x=multiplymatrix(y,x)#after the change pivot is 1
                 print("1 changing",x)
             else:
                 y=unit_matrix(len(x))
                 y[j][i]=(x[j][i]/x[i][i])*(-1)
-                x=kefelmatrix(y,x)
+                x=multiplymatrix(y,x)
                 print("2 ->",x)
             with open("file5.txt",'a') as f:
                 f.write(str(x))
