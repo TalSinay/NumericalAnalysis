@@ -42,7 +42,18 @@ def createMatrix():
         y=[]
     return x
 
-
+def createVector():
+    x = []
+    y = []
+    rows = int(input("enter the size rows matrix:"))
+    cols = 1
+    for i in range(rows):
+        for j in range(cols):
+            num = int(input("enter number:"))
+            y.append(num)
+        x.append(y)
+        y = []
+    return x
 
 
 def multiplymatrix(x,y):
@@ -64,7 +75,7 @@ def multiplymatrix(x,y):
 
     return result
 
-def ChangeMatrix(x):
+def ChangeMatrix(x, vectorB):
     z = 1
     while z == 1:
         z = 0
@@ -75,8 +86,10 @@ def ChangeMatrix(x):
                         if x[y][j] != 0:
                             k = unit_matrix(len(x))  # change i with y
                             k[i], k[y] = k[y], k[i]
+                            old=x
                             x = multiplymatrix(k, x)
-                            print("L is:", x)
+                            vectorB=multiplymatrix(k, vectorB)
+                            printAsMatrix(x, vectorB, k,old)
                             z = 1
                             break
 #no zero
@@ -85,34 +98,40 @@ def ChangeMatrix(x):
             if i==j:
                 y=unit_matrix(len(x))
                 y[i][j]=(1/x[i][j])
+                oldMatrix = x
+                vectorB=multiplymatrix(y, vectorB)
                 x=multiplymatrix(y,x)#after the change pivot is 1
-                print("1 changing",x)
+                printAsMatrix(x, vectorB, y,oldMatrix)
             else:
                 y=unit_matrix(len(x))
                 y[j][i]=(x[j][i]/x[i][i])*(-1)
+                oldMatrix=x
+                vectorB = multiplymatrix(y, vectorB)
                 x=multiplymatrix(y,x)
-                print("2 ->",x)
-            with open("file5.txt",'a') as f:
-                f.write(str(x))
-                f.write("\n")
+                printAsMatrix(x, vectorB, y, oldMatrix)
 
 
 
 
+def printAsMatrix(x,b,k,old):
+    with open("file5.txt", 'a') as f:
+        for i in range(len(x)):
+            print("E-->",k[i],"old-->",old[i],"= A-->",x[i],"b->",b[i])
+            f.write("E-->"+ str(k[i])+ "\t\told A-->"+ str(old[i])+ "\t\t= A after the change-->"+ str(x[i])+ "\t\tthe vector b ->"+ str(b[i]))
+            f.write("\n")
+        f.write("----------------------------------------------------------------------------------------------------------------\n")
+        print("-----------------------")
 
+def rand():
+    x=input("enter number : ")
+    a=input("enter number of choices :")
+    return int((x)%a)+1
 
-
-
-
-
-
-
-#matrix(unit_matrix(3),createMatrix())
-#(arr[i][j]/arr[j][j])*(-1)
-
-
-
-x=[[1,0,-5],[8,-4,-5],[-1,3,0]]
+x=[[1,-2,-2],[2,0,3],[1,1,3]]
+b=[[-2],[4],[4]]
 f=open("file5.txt",'w')
 f.close()
-ChangeMatrix(x)
+printAsMatrix(x,b,unit_matrix(3),x)
+ChangeMatrix(x,b)
+
+
