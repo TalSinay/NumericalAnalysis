@@ -111,7 +111,7 @@ def ChangeMatrix(x):
 #(arr[i][j]/arr[j][j])*(-1)
 
 
-#x=createMatrix()
+
 x=[[1,0,-5],[8,-4,-5],[-1,3,0]]
 f=open("file5.txt",'w')
 f.close()
