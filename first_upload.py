@@ -45,7 +45,7 @@ def createMatrix():
 
 
 
-def kefelmatrix(x,y):
+def multiplymatrix(x,y):
 
     result = []
     temp = []
@@ -76,7 +76,7 @@ def ChangeMatrix(x):
                         if x[y][j] != 0:
                             k = unit_matrix(len(x))  # change i with y
                             k[i], k[y] = k[y], k[i]
-                            x = kefelmatrix(k, x)
+                            x = multiplymatrix(k, x)
                             print("L is:", x)
                             z = 1
                             break
@@ -86,12 +86,12 @@ def ChangeMatrix(x):
             if i==j:
                 y=unit_matrix(len(x))
                 y[i][j]=(1/x[i][j])
-                x=kefelmatrix(y,x)#after the change pivot is 1
+                x=multiplymatrix(y,x)#after the change pivot is 1
                 print("1 changing",x)
             else:
                 y=unit_matrix(len(x))
                 y[j][i]=(x[j][i]/x[i][i])*(-1)
-                x=kefelmatrix(y,x)
+                x=multiplymatrix(y,x)
                 print("2 ->",x)
             with open("file5.txt",'a') as f:
                 f.write(str(x))
