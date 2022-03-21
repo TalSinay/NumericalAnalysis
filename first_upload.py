@@ -21,7 +21,7 @@ def unit_matrix(n):
     temp = []
     for i in range(n):
         for j in range(n):
-            if i==j:
+            if i == j:
                 temp.append(1)
             else:
                 temp.append(0)
@@ -32,12 +32,12 @@ def unit_matrix(n):
 def createMatrix():
     x=[]
     y=[]
-    s=int(input("enter the size rows matrix:"))
-    p=int(input("enter the size cols matrix:"))
-    for i in range(s):
-        for j in range(p):
-            t=int(input("enter number:"))
-            y.append(t)
+    rows=int(input("enter the size rows matrix:"))
+    cols=int(input("enter the size cols matrix:"))
+    for i in range(rows):
+        for j in range(cols):
+            num=int(input("enter number:"))
+            y.append(num)
         x.append(y)
         y=[]
     return x
@@ -46,7 +46,6 @@ def createMatrix():
 
 
 def multiplymatrix(x,y):
-
     result = []
     temp = []
     for i in range(len(x)):
