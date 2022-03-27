@@ -74,8 +74,26 @@ def multiplymatrix(x,y):
                 result[i][j] += x[i][k] * y[k][j]
 
     return result
+def maxMatrix(M,V):
+    for i in range(len(M)):
+        temp=[]
+        for j in range(len(M)):
+            if i<=j:
+                temp.append(abs(M[j][i]))
+        x=max(temp)
+
+        p=temp.index(x)+i
+        k=unit_matrix(len(M))
+        k[p],k[i]=k[i],k[p]
+        M=multiplymatrix(k,M)
+        V=multiplymatrix(k,V)
+    return M,V
+
+
 
 def ChangeMatrix(x, vectorB):
+    x,vectorB=maxMatrix(x,vectorB)
+    print("after max x=",x,"after max b=",  vectorB)
     z = 1
     while z == 1:
         z = 0
@@ -123,15 +141,19 @@ def printAsMatrix(x,b,k,old):
         print("-----------------------")
 
 def rand():
-    x=input("enter number : ")
-    a=input("enter number of choices :")
+    lin=209487370
+    tal=316261353
+    yuval=207059544
+    x=int(tal+yuval+lin)
+    a=4
     return int((x)%a)+1
 
-x=[[1,-2,-2],[2,0,3],[1,1,3]]
-b=[[-2],[4],[4]]
+x=[[-1.41, 2, 0], [1, -1.41, 1], [0, 2, -1.41]]
+b=[[1],[1],[1]]
 f=open("file5.txt",'w')
 f.close()
-printAsMatrix(x,b,unit_matrix(3),x)
+#printAsMatrix(x,b,unit_matrix(3),x)
 ChangeMatrix(x,b)
+
 
 
