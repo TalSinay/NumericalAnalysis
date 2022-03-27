@@ -9,11 +9,11 @@ def machinePrecision(f=float):
 
 print("before:",abs(3.0*(4.0/3.0-1)-1))
 print("after:",abs(3.0*(4.0/3.0-1)-1)-machinePrecision())
-
+'''
 def Rand(list):
     x=random.choice(list)
     return x
-'''
+
 
 
 def unit_matrix(n):
