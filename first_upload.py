@@ -10,9 +10,7 @@ def machinePrecision(f=float):
 print("before:",abs(3.0*(4.0/3.0-1)-1))
 print("after:",abs(3.0*(4.0/3.0-1)-1)-machinePrecision())
 '''
-def Rand(list):
-    x=random.choice(list)
-    return x
+
 
 
 
@@ -140,20 +138,28 @@ def printAsMatrix(x,b,k,old):
         f.write("----------------------------------------------------------------------------------------------------------------\n")
         print("-----------------------")
 
-def rand():
-    lin=209487370
-    tal=316261353
-    yuval=207059544
-    x=int(tal+yuval+lin)
-    a=4
-    return int((x)%a)+1
+def Rand():
+    lin = 209487370
+    tal = 316261353
+    yuval = 207059544
+    x =[tal,lin,yuval]
+    y=random.choice(x)
+    return int(y%12)+19
 
-x=[[-1.41, 2, 0], [1, -1.41, 1], [0, 2, -1.41]]
-b=[[1],[1],[1]]
-f=open("file5.txt",'w')
-f.close()
+
+
+
+
+
+
+
+
+x=[[1, 2, -2], [1, 1, 1], [2, 2, 1]]
+b=[[7],[2],[5]]
+#f=open("file5.txt",'w')
+#f.close()
 #printAsMatrix(x,b,unit_matrix(3),x)
-ChangeMatrix(x,b)
+#ChangeMatrix(x,b)
 
-
+#print(Rand())
 
