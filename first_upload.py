@@ -85,6 +85,11 @@ def maxMatrix(M,V):
         k[p],k[i]=k[i],k[p]
         M=multiplymatrix(k,M)
         V=multiplymatrix(k,V)
+        for i in range(len(M)):
+            temp = []
+            for j in range(len(M)):
+                if i!=j:
+                    sum
     return M,V
 
 
