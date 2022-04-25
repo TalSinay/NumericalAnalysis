@@ -4,7 +4,6 @@ def gauss(matrix,b,parameters):
     existdiagonal = False
     e = 0.00001
     res=[0 for x in matrix]
-
     prev = [0 for x in matrix]
     for p in permutation(matrix):
         if(checkdiag(p)):
@@ -12,13 +11,11 @@ def gauss(matrix,b,parameters):
             matrix = p
             existdiagonal = True
             break
-
     if existdiagonal:
         for i in indexlist:
             newb.append(b[i])
     else:
         print("No dominant diagonal")
-
     iternum = 1
     for itr in range(maxiter):
         for i in range(len(res)):
@@ -37,8 +34,10 @@ def gauss(matrix,b,parameters):
         print()
         iternum += 1
         if all(e >= v for v in comparelist):
-            break
+            return
         prev = [x for x in res]
+
+    print("The system of equations does not converge")
 
 
 def jacobi(matrix,b,parameters):
@@ -59,7 +58,7 @@ def jacobi(matrix,b,parameters):
             newb.append(b[i])
     else:
         print("No dominant diagonal")
-    # print(newb)
+
     iternum = 1
     for itr in range(maxiter):
         for i in range(len(res)):
@@ -78,8 +77,10 @@ def jacobi(matrix,b,parameters):
         print()
         iternum+=1
         if all(e >= v for v in comparelist):
-            break
+            return
         prev = [x for x in res]
+
+    print("The system of equations does not converge")
 
 
 
@@ -117,9 +118,10 @@ matrixA = [[4,2,0],[2,10,4],[0,4,5]]
 vectorB=[[2],[6],[5]]
 parameters = ["x","y","z"]
 
-
 while(True):
-
+    # parameters = input("Enter the parameters :\n for example XYZ if the first parameter is X the second is Y...\n")
+    # parameters = list(parameters)
+    # print(parameters)
     chioce = input("Press 0 to solve with gauss an 1 for jacobi: \n")
     if(chioce == '0'):
         print("solution by gauss")
