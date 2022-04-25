@@ -1,15 +1,26 @@
 def gauss(matrix,b,parameters):
     newb=[]
+    maxiter = 100
+    existdiagonal = False
     e = 0.00001
     res=[0 for x in matrix]
+    # prev = abs(sum(res))
     prev = [0 for x in matrix]
     for p in permutation(matrix):
         if(checkdiag(p)):
             indexlist = [matrix.index(x) for x in p]
             matrix = p
-    for i in indexlist:
-        newb.append(b[i])
-    while (True):
+            existdiagonal = True
+            break
+    # print(indexlist)
+    if existdiagonal:
+        for i in indexlist:
+            newb.append(b[i])
+    else:
+        print("No dominant diagonal")
+    # print(newb)
+    iternum = 1
+    for itr in range(maxiter):
         for i in range(len(res)):
             tmparr=[]
             for j in range(len(res)):
@@ -20,16 +31,24 @@ def gauss(matrix,b,parameters):
 
         zipedlist = zip([abs(t) for t in res],[abs(r) for r in prev])
         comparelist = [abs(x - y) for (x, y) in zipedlist]
+        print(f"{iternum} ) ", end="")
         for indx in range(len(res)):
             print(f" {parameters[indx]} : {res[indx]}  ",end="")
         print()
+        iternum += 1
         if all(e >= v for v in comparelist):
             break
         prev = [x for x in res]
-
+        # t=abs(sum(res))
+        # if(abs(t-prev)<=e):
+        #     break
+        # prev = t
+        # print(res)
 
 def jacobi(matrix,b,parameters):
     newb = []
+    maxiter = 100
+    existdiagonal = False
     e = 0.00001
     res = [0 for x in matrix]
     prev = [0 for x in matrix]
@@ -37,9 +56,17 @@ def jacobi(matrix,b,parameters):
         if (checkdiag(p)):
             indexlist = [matrix.index(x) for x in p]
             matrix = p
-    for i in indexlist:
-        newb.append(b[i])
-    while (True):
+            existdiagonal = True
+            break
+    # print(indexlist)
+    if existdiagonal:
+        for i in indexlist:
+            newb.append(b[i])
+    else:
+        print("No dominant diagonal")
+    # print(newb)
+    iternum = 1
+    for itr in range(maxiter):
         for i in range(len(res)):
             tmparr = []
             for j in range(len(res)):
@@ -50,9 +77,11 @@ def jacobi(matrix,b,parameters):
 
         zipedlist = zip([abs(t) for t in res],[abs(r) for r in prev])
         comparelist = [abs(x - y) for (x, y) in zipedlist]
+        print(f"{iternum} ) ", end="")
         for indx in range(len(res)):
             print(f" {parameters[indx]} : {res[indx]}  ", end="")
         print()
+        iternum+=1
         if all(e >= v for v in comparelist):
             break
         prev = [x for x in res]
@@ -78,41 +107,33 @@ def checkrow(temprow,index):
 def permutation(lst):
     if len(lst) == 0:
         return []
-
-
     if len(lst) == 1:
         return [lst]
-
-
-
     l = []
-
-
     for i in range(len(lst)):
         m = lst[i]
-
-
         remLst = lst[:i] + lst[i + 1:]
-
-
         for p in permutation(remLst):
             l.append([m] + p)
     return l
 
 
-matrixA = [[2,10,4],[4,2,0],[0,4,5]]
+matrixA = [[4,2,0],[2,10,4],[0,4,5]]
 vectorB=[[2],[6],[5]]
 parameters = ["x","y","z"]
-
+#checkdiag(matrixA)
+# gauss(matrixA,vectorB)
 
 while(True):
-
-    chioce = input("Press 1 to solve with gauss an 0 for jacobi: \n")
-    if(chioce == '1'):
+    # parameters = input("Enter the parameters :\n for example XYZ if the first parameter is X the second is Y...\n")
+    # parameters = list(parameters)
+    # print(parameters)
+    chioce = input("Press 0 to solve with gauss an 1 for jacobi: \n")
+    if(chioce == '0'):
         print("solution by gauss")
         gauss(matrixA,vectorB,parameters)
         break
-    if (chioce == '0'):
+    if (chioce == '1'):
         print("solution by Jacobi")
         jacobi(matrixA, vectorB,parameters)
         break
