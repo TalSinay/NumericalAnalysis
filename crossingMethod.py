@@ -10,8 +10,8 @@ def Bisection_Method(f,start_point,end_point, eps=0.0001):
     x= symbols('x')
     f=lambdify(x,f)
     count=1
-    k = int(-(math.log(e / (b - start_point))) / math.log(2))
-    while (abs(start_point-c)>eps or count>k):
+    k = int(-(math.log(eps / (end_point - start_point))) / math.log(2))
+    while (abs(start_point-c)>eps or count<k):
         print("iter number ",count," ",start_point,"is the start ",c,"is the middle ",end_point,"is the end ")
         if f(c)==0:
             print("this is the number")
@@ -22,9 +22,9 @@ def Bisection_Method(f,start_point,end_point, eps=0.0001):
         else:
             c, start_point = (end_point + c) / 2, c
         count += 1
-    if count>k:
-        print("cant use crossing method")
-        return
+        if count>k:
+            print("cant use crossing method")
+            return
     return c
 
 
@@ -71,38 +71,41 @@ def secant_method(f,start_point,end_point,e):
 
 
 def main():
-    x = var('x')  # the possible variable names must be known beforehand...
-    x = symbols('x')
+    x = var('x')
     user_input = input("Enter function\n")
-    f= sympify(user_input)
+    g=sympify(user_input)
     start_point=float(input("Enter start point\n"))
-    b=float(input("Enter end point\n"))
+    end_point=float(input("Enter end point\n"))
+    x = symbols('x')
+    fx = lambdify(x, g, "math")
+    fd = nigzeret(fx, x)
     e=0.0001
-    fd = nigzeret(f, x)
-    a=int((abs(start_point)+abs(b))*10)
+
+    a=int((abs(start_point)+abs(end_point))*10)
     choice=int(input("which methon you want to use:\n1->Bisection Method\n2->Newton Raphson\n3->secant method"))
 
     if choice == 1:
         for i in range(a):
             x1 = start_point + i * 0.1
             x2 = x1 + 0.1
-            if(f(x1)*f(x2))<0:
-                print("for f(X)->",Bisection_Method(f,x1,x2,e))
+            print((fx(x1)*fx(x2)))
+            if(fx(x1)*fx(x2)) < 0:
+                print("for f(X)->",Bisection_Method(fx,x1,x2,e))
             if fd(x1)*fd(x2)<0:
                 print("a critical point!")
                 o=Bisection_Method(fd, x1, x2, e)
-                if f(o)==0:
+                if fx(o)==0:
                     print("negative root for f'(X),positive for f(x)->",Bisection_Method(fd, x1, x2, e))
     if choice== 2:
         for i in range(a):
             x1 = start_point + i * 0.1
             x2 = x1 + 0.1
-            if (f(x1) * f(x2)) < 0:
-                    print("for f(X)->", Newton_Raphson(f, x1, x2, e))
+            if (fx(x1) * fx(x2)) < 0:
+                    print("for f(X)->", Newton_Raphson(fx, x1, x2, e))
             if fd(x1) * fd(x2) < 0:
                 print("a critical point!")
                 o=Newton_Raphson(fd, x1, x2, e)
-                if f(o)==0:
+                if fx(o)==0:
                     print("negative root for f'(X),positive for f(x)->", Newton_Raphson(fd, x1, x2, e))
 
 
@@ -110,18 +113,22 @@ def main():
         for i in range(a):
             x1 = start_point + i * 0.1
             x2 = x1 + 0.1
-            if (f(x1) * f(x2)) < 0:
-                print("for f(X)->", secant_method(f, x1, x2, e))
+            if (fx(x1) * fx(x2)) < 0:
+                print("for f(X)->", secant_method(fx, x1, x2, e))
             if fd(x1) * fd(x2) < 0:
                 print("a critical point!")
                 o=secant_method(fd, x1, x2, e)
-                if f(o)==0:
+                if fx(o)==0:
                     print("negative root for f'(X),positive for f(x)->", secant_method(fd, x1, x2, e))
 
 
 
 
-
+# x = var('x')  # the possible variable names must be known beforehand...
+# user_input = input("Enter function\n")
+# f= sympify(user_input)
+# a=int(input("Enter start point\n"))
+# b=int(input("Enter end point\n"))
 
 #print(secant_method(f,start_point,b,e))
 #print(Newton_Raphson(f,start_point,b,e))
