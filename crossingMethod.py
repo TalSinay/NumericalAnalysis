@@ -18,10 +18,10 @@ def main(f,start_point,end_point, eps=0.0001):
             x2 = x1 + 0.1
             if (f(x1) * f(x2)) < 0:
                 print(Bisection_Method(f, x1, x2, eps)," is the negative root")
-            if (fd(x1) * fd(x2) < 0):
+            elif (fd(x1) * fd(x2) < 0):
                 g = Bisection_Method(f, x1, x2, eps)
-                if f(g) ==0:
-                    print("A positive root for the func ->", g)
+                if abs(f(g))<eps:
+                    print("A positive root for the func ->", 0)
                 else:
                     print("the number ",g, " is a extreme point,not a root")
     if choice==2:
@@ -30,10 +30,10 @@ def main(f,start_point,end_point, eps=0.0001):
             x2 = x1 + 0.1
             if (f(x1) * f(x2)) < 0:
                 print(Newton_Raphson(fx, x1, x2, eps)," is the negative root")
-            if (fd(x1) * fd(x2) < 0):
+            elif (fd(x1) * fd(x2) < 0):
                 g = Newton_Raphson(fx, x1, x2, eps)
-                if f(g) ==0 :
-                    print("A positive root for the func ->", g)
+                if abs(f(g))<0.00001 :
+                    print("A positive root for the func ->", 0)
                 else:
                     print("the number ",g, " is a extreme point,not a root")
     if choice==3:
@@ -42,10 +42,10 @@ def main(f,start_point,end_point, eps=0.0001):
             x2 = x1 + 0.1
             if (f(x1) * f(x2)) < 0:
                 print(secant_method(f, x1, x2, eps)," is the negative root")
-            if (fd(x1) * fd(x2) < 0):
+            elif (fd(x1) * fd(x2) < 0):
                 g = secant_method(f, x1, x2, eps)
-                if f(g) ==0:
-                    print("A positive root for the func ->", g)
+                if abs(f(g))<eps:
+                    print("A positive root for the func ->", 0)
                 else:
                     print("the number ",g, " is a extreme point,not a root")
 
@@ -65,8 +65,6 @@ def Bisection_Method(f,start_point,end_point, eps=0.0001):
             print("cant use crossing method")
             return
     print("Bisection Method iter number ->", count)
-    if abs(f(c))<eps:
-        return 0
     return c
 
 def Newton_Raphson(f,start_point,end_point,e):
@@ -88,8 +86,6 @@ def Newton_Raphson(f,start_point,end_point,e):
             print("The method is not suitable")
             return None
     print("Newton-Raphson num of iter", count)
-    if abs(f(x1))<e:
-        return 0
     return x1
 
 def secant_method(f,start_point,end_point,e):
@@ -107,8 +103,6 @@ def secant_method(f,start_point,end_point,e):
             print("The method is not suitable")
             return None
     print("secant num of iter", count)
-    if abs(f(x2))<e:
-        return 0
     return x2
 
 x = var('x')  # the possible variable names must be known beforehand...
