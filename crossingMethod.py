@@ -6,6 +6,7 @@ def nigzeret(f, x):
     return lambdify(x, my_f1)
 
 def main(f,start_point,end_point, eps=0.0001):
+    roots=[]
     fx = f
     x= symbols('x')
     f=lambdify(x,f)
@@ -21,19 +22,23 @@ def main(f,start_point,end_point, eps=0.0001):
             elif (fd(x1) * fd(x2) < 0):
                 g = Bisection_Method(f, x1, x2, eps)
                 if abs(f(g))<eps:
-                    print("A positive root for the func ->", 0)
+                    roots.append(0)
+                    #print("A positive root for the func ->", 0)
                 else:
+
                     print("the number ",g, " is a extreme point,not a root")
     if choice==2:
         for i in range(a):
             x1 = start_point + i * 0.1
             x2 = x1 + 0.1
             if (f(x1) * f(x2)) < 0:
-                print(Newton_Raphson(fx, x1, x2, eps)," is the negative root")
+                roots.append(Newton_Raphson(fx, x1, x2, eps))
+                #print(Newton_Raphson(fx, x1, x2, eps)," is the negative root")
             elif (fd(x1) * fd(x2) < 0):
                 g = Newton_Raphson(fx, x1, x2, eps)
                 if abs(f(g))<0.00001 :
-                    print("A positive root for the func ->", 0)
+                    roots.append(0)
+                    #print("A positive root for the func ->", 0)
                 else:
                     print("the number ",g, " is a extreme point,not a root")
     if choice==3:
@@ -41,13 +46,17 @@ def main(f,start_point,end_point, eps=0.0001):
             x1 = start_point + i * 0.1
             x2 = x1 + 0.1
             if (f(x1) * f(x2)) < 0:
-                print(secant_method(f, x1, x2, eps)," is the negative root")
+                roots.append(secant_method(f, x1, x2, eps))
+                #print(secant_method(f, x1, x2, eps)," is the negative root")
             elif (fd(x1) * fd(x2) < 0):
                 g = secant_method(f, x1, x2, eps)
                 if abs(f(g))<eps:
-                    print("A positive root for the func ->", 0)
+                    #print("A positive root for the func ->", 0)
+                    roots.append(0)
                 else:
                     print("the number ",g, " is a extreme point,not a root")
+    w=set(roots)
+    print(w)
 
 def Bisection_Method(f,start_point,end_point, eps=0.0001):
     c=(end_point+start_point)/2
