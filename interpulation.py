@@ -1,3 +1,72 @@
+'''
+authors:
+yuval amar 207059544
+tal sinay 316261353
+lin sadon 209487370
+'''
+def multy_matrix_vector(mat,vector):
+    new_mat=list()
+    sum=0
+    t=[]
+    for i in range(len(vector)):
+        t2=[]
+        t2.append(vector[i])
+        t.append(t2)
+    vector=t
+    for i in range(len(mat)): #rows
+        new_mat.append(list()) #cols
+        for j in range(len(vector[0])):
+            for k in range(len(vector)):
+                sum += mat[i][k]*vector[k][j] #add to the sum
+            new_mat[i].append(sum)
+            sum=0
+    return new_mat
+def matrixmaker(a, b):
+    s=len(a)
+    matrix = [[0 for i in range(s)] for j in range(s)]
+    for i in range(s):
+        for j in range(s):
+            if i == j:
+                matrix[i][j] = 2
+            elif j == i + 1:
+                matrix[i][j] = b[i]
+            elif i == j + 1:
+                matrix[i][j] = a[i]
+    return matrix
+
+def CubicSpline(A,B):
+    g = [0]
+    m = [0]
+    d = [0]
+    size = len(A)
+    x=[i[0] for i in A]
+    y = [i[1] for i in A]
+    h=[x[1]-x[0]]
+    for i in range(1,size):
+        if i != size - 1:
+            h.append(x[i + 1] - x[i])
+            g.append(h[i] / (h[i - 1] + h[i]))
+            m.append(1 - g[i])
+            d.append((6 / (h[i - 1] + h[i])) * (((y[i + 1] - y[i]) / h[i]) - ((y[i] - y[i - 1]) / h[i - 1])))
+    m.append(0)
+    g.append(0)
+    d.append(0)
+    findX = 0
+    for i in range(size):
+        if B < x[i]:
+            findX = i-1
+            break
+        if i==size-1:
+            findX=size-2
+    matrix = matrixmaker(m, g)
+    M = multy_matrix_vector(matrix,d)
+    return ((((x[findX + 1] - B) ** 3) * M[findX][0] + ((B - x[findX]) ** 3) * M[findX+1][0])/ (6 * h[findX])
+    +((x[findX + 1] - B) * y[findX] + (B - x[findX]) * y[findX + 1]) / h[findX]
+    - (((x[findX + 1] - B) * M[findX][0]) + ((B - x[findX])) * M[findX+1][0]) * h[findX] / 6)
+
+
+
+
 def Linear_interpolation(points, find_point):
     for row in range(len(points) - 1):
         if find_point > points[row][0] and find_point < points[row + 1][0]:
@@ -154,9 +223,10 @@ def Neville_interpolation(points,find_point):
 
 
 def main():
-    points=[[0,0],[1,0.8415],[2,0.9093],[3,0.1411],[4,-0.7568],[5,-0.9589],[6,-0.2794]]
+    points = [[0, 0], [1, 0.8415], [2, 0.9093], [3, 0.1411], [4, -0.7568], [5, -0.9589], [6, -0.2794]]
+    ##points = [[0,0], [0.5235987756, 0.5], [0.7853981634, 0.7072],[1.570796327,1]]
     find_point=2.5
-    choice=int(input("in which interpolation do you calculate?\n1-Linear\n2-polynomial\n3-Lagrange\n4-Neville\n"))
+    choice=int(input("in which interpolation do you calculate?\n1-Linear\n2-polynomial\n3-Lagrange\n4-Neville\n5-CubicSpline\n"))
     if choice == 1:
         print("======================Linear_interpolation===========================\n")
         print(Linear_interpolation(points,find_point))
@@ -169,9 +239,11 @@ def main():
     elif choice == 4:
         print("======================Neville_interpolation===========================\n")
         print(Neville_interpolation(points,find_point))
+    elif choice == 5:
+        print("======================CubicSpline_interpolation===========================\n")
+        print(CubicSpline(points,find_point))
     else:
         choice = int(input("illegal choice! please try again\n "))
 
-
-
+main()
 
