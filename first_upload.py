@@ -85,18 +85,13 @@ def maxMatrix(M,V):
         k[p],k[i]=k[i],k[p]
         M=multiplymatrix(k,M)
         V=multiplymatrix(k,V)
-        for i in range(len(M)):
-            temp = []
-            for j in range(len(M)):
-                if i!=j:
-                    sum
     return M,V
 
 
 
 def ChangeMatrix(x, vectorB):
     x,vectorB=maxMatrix(x,vectorB)
-    print("after max x=",x,"after max b=",  vectorB)
+    #print("after max x=",x,"after max b=",  vectorB)
     z = 1
     while z == 1:
         z = 0
@@ -122,15 +117,15 @@ def ChangeMatrix(x, vectorB):
                 oldMatrix = x
                 vectorB=multiplymatrix(y, vectorB)
                 x=multiplymatrix(y,x)#after the change pivot is 1
-                printAsMatrix(x, vectorB, y,oldMatrix)
+                #printAsMatrix(x, vectorB, y,oldMatrix)
             else:
                 y=unit_matrix(len(x))
                 y[j][i]=(x[j][i]/x[i][i])*(-1)
                 oldMatrix=x
                 vectorB = multiplymatrix(y, vectorB)
                 x=multiplymatrix(y,x)
-                printAsMatrix(x, vectorB, y, oldMatrix)
-
+                #printAsMatrix(x, vectorB, y, oldMatrix)
+    return vectorB
 
 
 
@@ -159,12 +154,12 @@ def Rand():
 
 
 
-x=[[1, 2, -2], [1, 1, 1], [2, 2, 1]]
-b=[[7],[2],[5]]
+x=[[2, 0, 0,0], [0.6666666, 2, 0.333333333,0], [0, 0.25, 2,0.75],[0,0,0,2]]
+b=[[0],[-1.2489254],[-2.398637],[0]]
 #f=open("file5.txt",'w')
 #f.close()
 #printAsMatrix(x,b,unit_matrix(3),x)
-#ChangeMatrix(x,b)
+print(ChangeMatrix(x,b),"the v")
 
 #print(Rand())
 
