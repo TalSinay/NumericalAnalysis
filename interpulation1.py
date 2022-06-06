@@ -1,3 +1,10 @@
+'''
+authors:
+yuval amar 207059544
+tal sinay 316261353
+lin sadon 209487370
+'''
+
 
 def maxMatrix(M,V):
     for i in range(len(M)):
