@@ -162,6 +162,8 @@ def Lagrange_interpolation(points,find_point):
                 continue
             mul = mul * ((find_point-points[j][0]) / (points[i][0] - points[j][0]))
         sum =sum+mul*points[i][1]
+        print("Interim results ", sum)
+
     return sum
 
 def matrixmaker(a, b):
@@ -216,6 +218,7 @@ def Neville_interpolation(points,find_point):
     for i in range(len(points)):
         for j in range(i,len(points)):
             new_matrix[i][j]=HelpNeville(i, j, points, find_point)
+            print("Interim results ",new_matrix[i][j])
     return new_matrix[0][len(points)-1]
 
 def cobi(points,find_point):
@@ -253,8 +256,8 @@ def cobi(points,find_point):
             - (((points[find_loction + 1][0] - find_point) * M[find_loction]) + ((find_point - points[find_loction][0])) * M[find_loction + 1]) * h[find_loction] / 6)
 
 def main():
-    points=[[0,0],[0.5235987756,0.5],[0.7853981634,0.7072],[1.570796327,1]]
-    find_point=1.047197551
+    points=[[0.35,-213.5991],[0.4,-204.4416],[0.55,-194.9375],[0.65,-185.0256],[0.7,-174.6711],[0.85,-163.8656],[0.9,-152.6271]]
+    find_point=0.75
     choice=int(input("in which interpolation do you calculate?\n1-Linear\n2-polynomial\n3-Lagrange\n4-Neville\n5-Cubic_Spline\n"))
     if choice == 1:
         print("======================Linear_interpolation===========================\n")
@@ -264,10 +267,10 @@ def main():
         print(Polynomial_interpolation(points,find_point))
     elif choice == 3:
         print("======================Lagrange_interpolation===========================\n")
-        print(Lagrange_interpolation(points,find_point))
+        print("Polynomial interpolation according to Lagrange->",Lagrange_interpolation(points,find_point))
     elif choice == 4:
         print("======================Neville_interpolation===========================\n")
-        print(Neville_interpolation(points,find_point))
+        print("final result->",Neville_interpolation(points,find_point))
     elif choice == 5:
         print("======================Cubic_Spline_interpolation===========================\n")
         print(cobi(points, find_point))
