@@ -35,4 +35,6 @@ n=5
 matrix=Romberg(a, b, n, func, eps)
 print(matrix[len(matrix) - 1][n - 1])
 for i in range(len(matrix)):
-    print(matrix[i])
+    print(matrix[i][i])
+
+
